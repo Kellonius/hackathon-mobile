@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, DateTime } from 'ionic-angular';
 
 import { User } from '../../providers';
 import { MainPage } from '../';
@@ -15,7 +15,7 @@ export class SignupPage {
   // The account fields for the login form.
   // If you're using the username field with or without email, make
   // sure to add it to the type
-  account: { firstName: string, lastName: string, email: string, password: string, accountType: number, gender: string, dob: Date} = {
+  account: { firstName: string, lastName: string, email: string, password: string, accountType: number, gender: string, dob: string} = {
     firstName: '',
     lastName:'',
     email: '',
