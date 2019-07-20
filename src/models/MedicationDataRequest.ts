@@ -1,5 +1,5 @@
 export class MedicationDataRequest {
-    id: number;
+    patientId: number;
 
     constructor(init?: MedicationDataRequest) {
         Object.assign(this,init);

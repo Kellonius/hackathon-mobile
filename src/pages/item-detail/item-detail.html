@@ -1,18 +1,26 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ item.name }}</ion-title>
+    <ion-title>{{item.GenericName}} - {{item.MedicalName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <div class="item-profile" text-center #profilePic [style.background-image]="'url(' + item.profilePic + ')'">
-  </div>
+  <!-- <div class="item-profile" text-center #profilePic [style.background-image]="'url(' + item.profilePic + ')'"> -->
+  <!-- </div> -->
 
-  <div class="item-detail" padding>
-    <h2>{{item.name}}</h2>
-    <p>{{item.about}}</p>
+  <div *ngFor="let item of itemDetails" class="item-detail" padding>
+      <span style="font-weight:bolder;">Script ID:: </span><span>{{item.ScriptId}}</span><br/><br/>
+    <span style="font-weight:bolder;">Frequency: </span><span>{{item.MedicationTime}}</span><br/><br/>
+    <span style="font-weight:bolder;">Route: </span><span>{{item.MedicationRoute}}</span><br/><br/>
+    <span style="font-weight:bolder;">Dosage: </span><span>{{item.Dosage}}</span><br/><br/>
+    <span style="font-weight:bolder;">Prescribed By: </span><span>{{item.PrescribedBy}}</span><br/><br/>
+    <span style="font-weight:bolder;">Phone</span><span>{{item.Phone}}</span><br/><br/>
+    <span style="font-weight:bolder;">Email: </span><span>{{item.Email}}</span><br/><br/>
+    <span style="font-weight:bolder;">Date Issued: </span><span>{{item.DateIssued}}</span><br/><br/>
+    <span style="font-weight:bolder;">Date Filled: </span><span>{{item.DateFilled}}</span><br/><br/>
+    <span style="font-weight:bolder;">Date Received: </span><span>{{item.DatePickedUp}}</span><br/><br/>
   </div>
 </ion-content>

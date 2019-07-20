@@ -14,17 +14,16 @@ import { MedicationDataResponse } from '../../models/MedicationDataResponse';
 })
 export class SearchPage {
 
-  currentItems: any = [];
+  currentItems: MedicationDataResponse[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items, private httpWrapper: HttpClientWrapperService, private user: User) {
 
     let id = new MedicationDataRequest({
-      id: user._user.id
+      patientId: user._user.id
     })
 
-    this.httpWrapper.post<MedicationDataRequest, MedicationDataResponse>(id, 'Medication/GetMedications').subscribe(x => {
-
-
+    this.httpWrapper.post<MedicationDataRequest, Array<MedicationDataResponse>>(id, 'Medication/GetMedications').subscribe(x => {
+      this.currentItems = x;
     })
 
    }
@@ -33,16 +32,16 @@ export class SearchPage {
   /**
    * Perform a service for the proper items.
    */
-  getItems(ev) {
-    let val = ev.target.value;
-    if (!val || !val.trim()) {
-      this.currentItems = [];
-      return;
-    }
-    this.currentItems = this.items.query({
-      name: val
-    });
-  }
+  // getItems(ev) {
+  //   let val = ev.target.value;
+  //   if (!val || !val.trim()) {
+  //     this.currentItems = [];
+  //     return;
+  //   }
+  //   this.currentItems = this.items.query({
+  //     name: val
+  //   });
+  // }
 
   /**
    * Navigate to the detail page for this item.
