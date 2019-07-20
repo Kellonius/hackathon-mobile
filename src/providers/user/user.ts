@@ -56,7 +56,7 @@ export class User {
    * the user entered on the form.
    */
   signup(accountInfo: any) {
-    let seq = this.httpwrapper.post(accountInfo, '/Users/CreateUser');
+    let seq = this.httpwrapper.post(accountInfo, '/Users/CreateUser').share();
 
     seq.subscribe((res: any) => {
       // If the API returned a successful response, mark the user as logged in

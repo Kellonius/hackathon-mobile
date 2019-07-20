@@ -11,6 +11,10 @@ import { Items } from '../../providers';
 })
 export class ListMasterPage {
   currentItems: Item[];
+  firstName: string = "";
+  lastName: string = "";
+  email: string = "";
+  dob: string = "";
 
   constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
     this.currentItems = this.items.query();
