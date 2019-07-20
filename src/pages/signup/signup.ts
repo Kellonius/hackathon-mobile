@@ -45,9 +45,10 @@ export class SignupPage {
       this.user.login(new UserLoginRequest({
         email: this.account.email,
         password: this.account.password
-      }))
-      this.navCtrl.push(MainPage);
-  
+      })).subscribe(() => {
+        this.navCtrl.push(MainPage);
+      });
+
     }, (err) => {
 
       // Unable to sign up
