@@ -53,7 +53,7 @@ export class SettingsPage {
       title: 'Attention',
       text: 'Simons Notification',
       data: { mydata: 'My hidden message this is' },
-      trigger: {  at: new Date(new Date().getTime() + 60)}
+      trigger: {  at: new Date(new Date().getTime() + 1000)}
     })
   }
 
