@@ -1,12 +1,17 @@
 page-welcome {
   .splash-bg {
     position: relative;
-    background: url('../assets/img/pills.jpg') no-repeat transparent;
-    background-size: cover;
+    background-color: #b216a6;
+    // background: url('../assets/img/icon_words.png') no-repeat transparent;
+    background-size: contain;
     height: 45%;
     z-index: 1;
-    background-repeat: repeat-x;
-    animation: animatedBackground 40s linear infinite;
+    // background-repeat: repeat-x;
+    // animation: animatedBackground 40s linear infinite;
+  }
+
+  img {
+    margin-top: 20%;
   }
 
   @keyframes animatedBackground {
@@ -22,8 +27,8 @@ page-welcome {
   }
   .splash-logo {
     margin: auto;
-    background: url('../assets/img/appicon2.png') repeat transparent;
-    background-size: 100%;
+    background: url('../assets/img/icon_pill.png') no-repeat transparent;
+    background-size: contain;
     width: 128px;
     height: 128px;
   }

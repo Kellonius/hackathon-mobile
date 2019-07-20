@@ -12,6 +12,21 @@
     <ion-list>
 
       <ion-item>
+        <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
+        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
+        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Date Of Birth</ion-label>
+        <ion-input type="Date" [(ngModel)]="account.dob" name="name"></ion-input>
+      </ion-item>
+
+      <ion-item>
         <ion-label fixed>First Name</ion-label>
         <ion-input type="text" [(ngModel)]="account.firstName" name="name"></ion-input>
       </ion-item>
@@ -21,10 +36,17 @@
         <ion-input type="text" [(ngModel)]="account.lastName" name="name"></ion-input>
       </ion-item>
 
+
+
       <ion-item>
-        <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
-        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+        <ion-label>Gender</ion-label>
+        <ion-select placeholder="Select One">
+          <ion-option value="f">Female</ion-option>
+          <ion-option value="m">Male</ion-option>
+        </ion-select>
       </ion-item>
+
+
 
 
       <!--
@@ -36,10 +58,7 @@
       </ion-item>
       -->
 
-      <ion-item>
-        <ion-label fixed>{{ 'PASSWORD' | translate }}</ion-label>
-        <ion-input type="password" [(ngModel)]="account.password" name="password"></ion-input>
-      </ion-item>
+
 
       <div padding>
         <button ion-button color="primary" block>{{ 'SIGNUP_BUTTON' | translate }}</button>
