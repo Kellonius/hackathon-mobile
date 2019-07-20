@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, ModalController, NavController } from 'ionic-angular';
 
 import { Item } from '../../models/item';
-import { Items } from '../../providers';
+import { Items, User } from '../../providers';
+import { HttpClientWrapperService } from '../../providers/api/http-wrapper.service';
+import { PatientDataResponse } from '../../models/PatientDataResponse';
+import { PatientDataRequest } from '../../models/PatientDataRequest';
 
 @IonicPage()
 @Component({
@@ -16,8 +19,19 @@ export class ListMasterPage {
   email: string = "";
   dob: string = "";
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController, private httpWrapper: HttpClientWrapperService, private user: User) {
     this.currentItems = this.items.query();
+
+    let email = new PatientDataRequest({
+      userEmail : user._user.email
+    })
+
+    this.httpWrapper.post<PatientDataRequest, PatientDataResponse>(email, 'Patient/GetPatientData').subscribe(x => {
+      this.firstName = x.firstName
+      this.lastName = x.lastName,
+      this.email = x.email,
+      this.dob = x.DOB
+    })
   }
 
   /**

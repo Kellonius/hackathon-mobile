@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HttpClientWrapperService } from '../../providers/api/http-wrapper.service';
 
 import { Item } from '../../models/item';
-import { Items } from '../../providers';
+import { Items, User } from '../../providers';
+import { MedicationDataRequest } from '../../models/MedicationDataRequest';
+import { MedicationDataResponse } from '../../models/MedicationDataResponse';
 
 @IonicPage()
 @Component({
@@ -13,7 +16,19 @@ export class SearchPage {
 
   currentItems: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items, private httpWrapper: HttpClientWrapperService, private user: User) {
+
+    let id = new MedicationDataRequest({
+      id: user._user.id
+    })
+
+    this.httpWrapper.post<MedicationDataRequest, MedicationDataResponse>(id, 'Medication/GetMedications').subscribe(x => {
+
+
+    })
+
+   }
+
 
   /**
    * Perform a service for the proper items.

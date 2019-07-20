@@ -11,7 +11,7 @@
   <form [formGroup]="form" *ngIf="settingsReady">
     <ion-list *ngIf="page == 'main'">
       <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION1' | translate }}</ion-label>
+        <ion-label>Push Notifications</ion-label>
         <ion-toggle formControlName="option1"></ion-toggle>
       </ion-item>
 
@@ -21,11 +21,11 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>{{ 'SETTINGS_OPTION3' | translate }}</ion-label>
+        <ion-label>Notification Frequency</ion-label>
         <ion-select formControlName="option3">
-          <ion-option value="1" checked="true">1</ion-option>
-          <ion-option value="2">2</ion-option>
-          <ion-option value="3">3</ion-option>
+          <ion-option value="1" checked="true">Dosage Schedule</ion-option>
+          <ion-option value="2">Daily</ion-option>
+          <ion-option value="3">Twice Daily</ion-option>
         </ion-select>
       </ion-item>
 
