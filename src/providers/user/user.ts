@@ -29,7 +29,12 @@ import { HttpResponse } from '@angular/common/http';
 export class User {
   _user: any;
 
-  constructor(public api: Api, public httpwrapper: HttpClientWrapperService) { }
+  constructor(public api: Api, public httpwrapper: HttpClientWrapperService) {
+    let user = localStorage.getItem('user');
+    if (user) {
+      this._user = JSON.parse(user);
+    }
+  }
 
   /**
    * Send a POST request to our login endpoint with the data
@@ -56,7 +61,7 @@ export class User {
    * the user entered on the form.
    */
   signup(accountInfo: any) {
-    let seq = this.httpwrapper.post(accountInfo, '/Users/CreateUser');
+    let seq = this.httpwrapper.post(accountInfo, '/Users/CreateUser').share();
 
     seq.subscribe((res: any) => {
       // If the API returned a successful response, mark the user as logged in
@@ -76,6 +81,7 @@ export class User {
    */
   logout() {
     this._user = null;
+    localStorage.clear();
   }
 
   /**
@@ -83,5 +89,10 @@ export class User {
    */
   _loggedIn(resp) {
     this._user = resp.user;
+    localStorage.setItem('user', JSON.stringify(this._user));
+  }
+
+  userIsLoggedIn(): boolean {
+    return this._user;
   }
 }

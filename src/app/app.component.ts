@@ -4,8 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
 
-import { FirstRunPage } from '../pages';
-import { Settings } from '../providers';
+import {FirstRunPage, MainPage} from '../pages';
+import {Settings, User} from '../providers';
 
 @Component({
   template: `<ion-menu [content]="content" type="overlay">
@@ -27,7 +27,7 @@ import { Settings } from '../providers';
   <ion-nav #content [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage = FirstRunPage;
+  rootPage;
 
   @ViewChild(Nav) nav: Nav;
 
@@ -45,7 +45,13 @@ export class MyApp {
     { title: 'Search', component: 'SearchPage' }
   ]
 //just a change to push.
-  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen, private user: User) {
+    if (this.user.userIsLoggedIn()) {
+      this.rootPage = MainPage;
+    } else {
+      this.rootPage = FirstRunPage;
+    }
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
