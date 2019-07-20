@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
-import { Settings } from '../../providers';
+import { Settings, User } from '../../providers';
 
 /**
  * The Settings page is a simple form that syncs with a Settings provider
@@ -40,7 +40,8 @@ export class SettingsPage {
     public formBuilder: FormBuilder,
     public navParams: NavParams,
     public translate: TranslateService,
-    public localNotifications: LocalNotifications) {
+    public localNotifications: LocalNotifications,
+    private user: User) {
       
 
     // this.localNotifications.schedule({
@@ -107,5 +108,10 @@ export class SettingsPage {
 
   toggle() {
     console.log(this.options.option1);
+  }
+
+  logout() {
+    this.user.logout();
+    this.navCtrl.push('WelcomePage');
   }
 }
