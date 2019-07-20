@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { Settings } from '../../providers';
 
@@ -38,8 +39,24 @@ export class SettingsPage {
     public settings: Settings,
     public formBuilder: FormBuilder,
     public navParams: NavParams,
-    public translate: TranslateService) {
+    public translate: TranslateService,
+    public localNotifications: LocalNotifications) {
+      
+    //   this.localNotifications.schedule({
+    //     text: 'Delayed ILocalNotification',
+    //     trigger: {at: new Date(new Date().getTime() + 60)},
+    //     led: 'FF0000',
+    //     sound: null
+    //  });
+    this.localNotifications.schedule({
+      id: 1,
+      title: 'Attention',
+      text: 'Simons Notification',
+      data: { mydata: 'My hidden message this is' },
+      trigger: {  at: new Date(new Date().getTime() + 60)}
+    })
   }
+
 
   _buildForm() {
     let group: any = {
