@@ -104,4 +104,8 @@ export class SettingsPage {
   ngOnChanges() {
     console.log('Ng All Changes');
   }
+
+  toggle() {
+    console.log(this.options.option1);
+  }
 }
