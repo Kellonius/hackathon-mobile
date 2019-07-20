@@ -12,6 +12,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Items } from '../mocks/providers/items';
 import { Settings, User, Api } from '../providers';
 import { MyApp } from './app.component';
+import { HttpClientWrapperService } from '../providers/api/http-wrapper.service';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -57,6 +58,7 @@ export function provideSettings(storage: Storage) {
   ],
   providers: [
     Api,
+    HttpClientWrapperService,
     Items,
     User,
     Camera,

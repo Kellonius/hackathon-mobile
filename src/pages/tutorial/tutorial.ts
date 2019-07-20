@@ -50,12 +50,12 @@ export class TutorialPage {
       });
   }
 
-  startApp() {
-    this.navCtrl.setRoot('WelcomePage', {}, {
-      animate: true,
-      direction: 'forward'
-    });
-  }
+  // startApp() {
+  //   this.navCtrl.setRoot('WelcomePage', {}, {
+  //     animate: true,
+  //     direction: 'forward'
+  //   });
+  // }
 
   onSlideChangeStart(slider) {
     this.showSkip = !slider.isEnd();
