@@ -9,7 +9,7 @@ export class HttpClientWrapperService {
     }
 
     // baseUrl: string = "http://localhost:50023/"
-    baseUrl: string = "https://hackathon-service.azurewebsites.net";
+    baseUrl: string = "https://hackathon-service.azurewebsites.net/";
 
     blob<T>(body: T, url: string): Observable<Blob> {
         return this.http.post(url, body, { responseType: 'blob' });
