@@ -42,15 +42,6 @@ export class SettingsPage {
     public translate: TranslateService,
     public localNotifications: LocalNotifications,
     private user: User) {
-      
-
-    // this.localNotifications.schedule({
-    //   id: 1,
-    //   title: 'Attention',
-    //   text: 'Simons Notification',
-    //   data: { mydata: 'My hidden message this is' },
-    //   trigger: {  at: new Date(new Date().getTime() + 1000)}
-    // })
   }
 
 
