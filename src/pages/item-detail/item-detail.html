@@ -37,6 +37,15 @@
       </ion-avatar>
       <p>{{msg}}</p>
     </ion-item>
+    <button *ngIf="item.DatePickedUp === null && item.DateFilled !== null" ion-button block style="background-color:#b216a6;" (click)="null">
+      <p>I Have Picked Up My Prescription!</p>
+    </button>
+    <button *ngIf="item.DatePickedUp !== null" ion-button block style="background-color:#b216a6;" (click)="null">
+      <p>I Have Taken My Prescription Today!</p>
+    </button>
+    <button *ngIf="item.DatePickedUp !== null" ion-button block style="background-color: white; border: #b216a6; color: #b216a6;" (click)="null">
+      <p>I Have Stopped Taking This Prescription</p>
+    </button>
   </div>
 
 
