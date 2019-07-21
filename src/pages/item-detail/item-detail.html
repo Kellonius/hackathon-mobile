@@ -48,6 +48,15 @@
       style="background-color: white; border: #b216a6; color: #b216a6;" (click)="stoppedTakingPrescription()">
       <p>I Have Stopped Taking This Prescription</p>
     </button>
+
+    <button *ngIf="item.DatePickedUp !== null" ion-button block
+      style="background-color: white; border: #b216a6; color: #b216a6;" (click)="drawMaterial()">
+      <p>Show Usage Data</p>
+    </button>
+    <ion-item>
+      <div id="chart_div"></div>
+    </ion-item>
+    
   </div>
 
 
