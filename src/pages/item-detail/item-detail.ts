@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { Items, User } from '../../providers';
 import { HttpClientWrapperService } from '../../providers/api/http-wrapper.service';
 import { MedicationDataResponse } from '../../models/MedicationDataResponse';
 import { ScriptModel } from '../../models/ScriptModel';
 import { MedicationPrescriptionRequest } from '../../models/MedicationPrescriptionRequest';
+import { PatientDeniedMedicationRequest } from '../../models/PatientDeniedMedicationRequest';
 
 @IonicPage()
 @Component({
@@ -18,7 +19,13 @@ export class ItemDetailPage {
   msg: string = "";
   itemDetails: ScriptModel[] = [];
 
-  constructor(public navCtrl: NavController, navParams: NavParams, items: Items, private httpWrapper: HttpClientWrapperService, private user: User) {
+  constructor(public navCtrl: NavController,
+     navParams: NavParams,
+     items: Items, 
+     private httpWrapper: HttpClientWrapperService, 
+     private user: User,
+     private alertController: AlertController
+     ) {
     this.item = navParams.get('item') || items.defaultItem;
 
     this.updateAndRefresh();
@@ -62,5 +69,48 @@ updateAndRefresh() {
     this.httpWrapper.post({}, 'Patient/PatientPickedUpMedication?scriptId='+this.item.ScriptId).subscribe(x =>{
       this.updateAndRefresh();
     });
+  }
+
+  async stoppedTakingPrescription() {
+    const alert = await this.alertController.create({
+      title: 'Stop Medication',
+      inputs: [
+        {
+          name: 'explanation',
+          type: 'text',
+          placeholder: 'Explanation'
+        }
+
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Confirm',
+          handler: x => {
+            this.handleDeniedMedication(new PatientDeniedMedicationRequest({
+
+              ScriptId: this.item.ScriptId,
+              Reason: x.explanation
+            }))
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  handleDeniedMedication(request: PatientDeniedMedicationRequest) {
+    this.httpWrapper.post(request, "Patient/PatientDeniedMedication").subscribe();
+  }
+
+  tookPrescription() {
+    this.httpWrapper.post({}, 'Patient/PatientUsedMedication?scriptId='+this.item.ScriptId).subscribe();
   }
 }
