@@ -20,6 +20,15 @@
       <span style="font-weight:bolder;">Date Issued: </span><span>{{item.DateIssued}}</span><br /><br />
       <span style="font-weight:bolder;">Date Filled: </span><span>{{item.DateFilled}}</span><br /><br />
       <span style="font-weight:bolder;">Date Received: </span><span>{{item.DatePickedUp}}</span><br /><br />
+      <button *ngIf="item.DatePickedUp === null && item.DateFilled !== null" ion-button block (click)="null">
+        <p>I Have Picked Up My Prescription!</p>
+      </button>
+      <button *ngIf="item.DatePickedUp !== null" ion-button block style="background-color:#b216a6;" (click)="null">
+        <p>I Have Taken My Prescription Today!</p>
+      </button>
+      <button *ngIf="item.DatePickedUp !== null" ion-button block style="background-color: white; border: #b216a6; color: #b216a6;" (click)="null">
+        <p>I Have Stopped Taking This Prescription</p>
+      </button>
     </div>
 
     <!-- <ion-item>
