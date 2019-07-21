@@ -2,6 +2,11 @@
 
   <ion-navbar>
     <ion-title>Medications</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="updateAndRefreshMeds()">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -9,7 +14,6 @@
 
 <ion-content>
 
-  <!-- <ion-searchbar (ionInput)="getItems($event)" placeholder="{{ 'SEARCH_PLACEHOLDER' | translate }}"></ion-searchbar> -->
   <ion-list>
     <button ion-item (click)="openItem(item)" *ngFor="let item of items.Scripts">
       <ion-avatar item-start>

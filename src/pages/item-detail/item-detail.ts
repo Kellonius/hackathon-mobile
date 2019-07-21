@@ -21,32 +21,46 @@ export class ItemDetailPage {
   constructor(public navCtrl: NavController, navParams: NavParams, items: Items, private httpWrapper: HttpClientWrapperService, private user: User) {
     this.item = navParams.get('item') || items.defaultItem;
 
-    let request = new MedicationPrescriptionRequest({
-      userId: user._user.id,
-      medicationId: this.item.MedicationId
-    })
-
-    this.httpWrapper.post<MedicationPrescriptionRequest, ScriptModel[]>(request, 'Medication/GetMedicationPrescriptions').subscribe(x => {
-      x.forEach(y => {
-        this.itemDetails.push(y);
-      });;
-      this.getSource();
-    })
+    this.updateAndRefresh();
   }
+
+updateAndRefresh() {
+  let request = new MedicationPrescriptionRequest({
+    userId: this.user._user.id,
+    medicationId: this.item.MedicationId
+  })
+
+  this.httpWrapper.post<MedicationPrescriptionRequest, ScriptModel[]>(request, 'Medication/GetMedicationPrescriptions').subscribe(x => {
+    x.forEach(y => {
+      this.itemDetails.push(y);
+      this.getSource();
+    });;
+   
+  })
+}
 
   getSource() {
 
     if (this.item.DateFilled == null) {
+      console.log(1)
       this.src = '../../assets/img/prescription.png';
       this.msg = "Prescription received by pharmacist."
     }
     if (this.item.DateFilled != null && this.item.DatePickedUp == null) {
+      console.log(2)
       this.src = '../../assets/img/filled.png';
       this.msg = "Prescription is ready to be picked up."
     }
     if (this.item.DatePickedUp != null) {
+      console.log(3)
       this.src = '../../assets/img/rx-bottles.jpg';
       this.msg = "Prescription picked up by patient."
     }
+  }
+
+  pickUpPrescription() {
+    this.httpWrapper.post({}, 'Patient/PatientPickedUpMedication?scriptId='+this.item.ScriptId).subscribe(x =>{
+      this.updateAndRefresh();
+    });
   }
 }
