@@ -41,11 +41,11 @@
       style="background-color:#b216a6;" (click)="pickUpPrescription()">
       <p>I Have Picked Up My Prescription!</p>
     </button>
-    <button *ngIf="item.DatePickedUp !== null" ion-button block style="background-color:#b216a6;" (click)="null">
+    <button *ngIf="item.DatePickedUp !== null" ion-button block style="background-color:#b216a6;" (click)="tookPrescription()">
       <p>I Have Taken My Prescription Today!</p>
     </button>
     <button *ngIf="item.DatePickedUp !== null" ion-button block
-      style="background-color: white; border: #b216a6; color: #b216a6;" (click)="null">
+      style="background-color: white; border: #b216a6; color: #b216a6;" (click)="stoppedTakingPrescription()">
       <p>I Have Stopped Taking This Prescription</p>
     </button>
   </div>
