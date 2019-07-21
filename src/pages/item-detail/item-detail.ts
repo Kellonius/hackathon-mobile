@@ -14,6 +14,8 @@ import { MedicationPrescriptionRequest } from '../../models/MedicationPrescripti
 })
 export class ItemDetailPage {
   item: any;
+  src: string = "";
+  msg: string = "";
   itemDetails: ScriptModel[] = [];
 
   constructor(public navCtrl: NavController, navParams: NavParams, items: Items, private httpWrapper: HttpClientWrapperService, private user: User) {
@@ -24,22 +26,27 @@ export class ItemDetailPage {
       medicationId: this.item.MedicationId
     })
 
-    this.httpWrapper.post<MedicationPrescriptionRequest, ScriptModel[]>(request, 'Medication/GetMedicationPrescriptions').subscribe(x=> {
+    this.httpWrapper.post<MedicationPrescriptionRequest, ScriptModel[]>(request, 'Medication/GetMedicationPrescriptions').subscribe(x => {
       x.forEach(y => {
         this.itemDetails.push(y);
       });;
+      this.getSource();
     })
   }
 
   getSource() {
 
     if (this.item.DateFilled == null) {
-      return '../../assets/img/prescription.png';
+      this.src = '../../assets/img/prescription.png';
+      this.msg = "Prescription received by pharmacist."
     }
     if (this.item.DateFilled != null && this.item.DatePickedUp == null) {
-      return '../../assets/img/filled.png';
+      this.src = '../../assets/img/filled.png';
+      this.msg = "Prescription is ready to be picked up."
     }
-
-    return '../../assets/img/rx-bottles.jpg';
-}
+    if (this.item.DatePickedUp != null) {
+      this.src = '../../assets/img/rx-bottles.jpg';
+      this.msg = "Prescription picked up by patient."
+    }
+  }
 }
