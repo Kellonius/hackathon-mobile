@@ -8,34 +8,46 @@
 
 
 <ion-content>
-    <div *ngFor="let item of itemDetails" class="item-detail" padding>
-        <!-- <ion-item><ion-label>Script ID: {{item.ScriptId}}</ion-label></ion-item> -->
-      <span style="font-weight:bolder;">Script ID:: </span><span>{{item.ScriptId}}</span><br /><br />
-      <span style="font-weight:bolder;">Frequency: </span><span>{{item.MedicationTime}}</span><br /><br />
-      <span style="font-weight:bolder;">Route: </span><span>{{item.MedicationRoute}}</span><br /><br />
-      <span style="font-weight:bolder;">Dosage: </span><span>{{item.Dosage}}</span><br /><br />
-      <span style="font-weight:bolder;">Prescribed By: </span><span>{{item.PrescribedBy}}</span><br /><br />
-      <span style="font-weight:bolder;">Phone</span><span>{{item.Phone}}</span><br /><br />
-      <span style="font-weight:bolder;">Email: </span><span>{{item.Email}}</span><br /><br />
-      <span style="font-weight:bolder;">Date Issued: </span><span>{{item.DateIssued}}</span><br /><br />
-      <span style="font-weight:bolder;">Date Filled: </span><span>{{item.DateFilled}}</span><br /><br />
-      <span style="font-weight:bolder;">Date Received: </span><span>{{item.DatePickedUp}}</span><br /><br />
-      <button *ngIf="item.DatePickedUp === null && item.DateFilled !== null" ion-button block (click)="null">
-        <p>I Have Picked Up My Prescription!</p>
-      </button>
-      <button *ngIf="item.DatePickedUp !== null" ion-button block style="background-color:#b216a6;" (click)="null">
-        <p>I Have Taken My Prescription Today!</p>
-      </button>
-      <button *ngIf="item.DatePickedUp !== null" ion-button block style="background-color: white; border: #b216a6; color: #b216a6;" (click)="null">
-        <p>I Have Stopped Taking This Prescription</p>
-      </button>
-    </div>
+  <div *ngFor="let item of itemDetails" class="item-detail" padding>
+    <ion-item>
+      <ion-label>Script ID: {{item.ScriptId}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Frequency: {{item.MedicationTime}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Route: {{item.MedicationRoute}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Dosage: {{item.Dosage}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Prescribed By: {{item.PrescribedBy}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Phone: {{item.Phone}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Email: {{item.Email}}</ion-label>
+    </ion-item>
 
-    <!-- <ion-item>
+    <ion-item bottom>
       <ion-avatar item-start>
         <img style="background-color:#b216a6;" [src]="getSource()" />
       </ion-avatar>
       <p>Prescription received by pharmacist</p>
-    </ion-item> -->
+    </ion-item>
+    <button *ngIf="item.DatePickedUp === null && item.DateFilled !== null" ion-button block style="background-color:#b216a6;" (click)="null">
+      <p>I Have Picked Up My Prescription!</p>
+    </button>
+    <button *ngIf="item.DatePickedUp !== null" ion-button block style="background-color:#b216a6;" (click)="null">
+      <p>I Have Taken My Prescription Today!</p>
+    </button>
+    <button *ngIf="item.DatePickedUp !== null" ion-button block style="background-color: white; border: #b216a6; color: #b216a6;" (click)="null">
+      <p>I Have Stopped Taking This Prescription</p>
+    </button>
+  </div>
+
+
 
 </ion-content>
