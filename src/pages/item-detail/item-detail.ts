@@ -31,4 +31,15 @@ export class ItemDetailPage {
     })
   }
 
+  getSource() {
+
+    if (this.item.DateFilled == null) {
+      return '../../assets/img/prescription.png';
+    }
+    if (this.item.DateFilled != null && this.item.DatePickedUp == null) {
+      return '../../assets/img/filled.png';
+    }
+
+    return '../../assets/img/rx-bottles.jpg';
+}
 }

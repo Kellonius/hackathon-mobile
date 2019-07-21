@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 
 import { Item } from '../../models/item';
+import { ScriptModel } from '../../models/ScriptModel';
 
 @Injectable()
 export class Items {
   items: Item[] = [];
+  public Scripts: ScriptModel[];
 
   defaultItem: any = {
     "name": "Burt Bear",

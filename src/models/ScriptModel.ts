@@ -3,6 +3,8 @@ export class ScriptModel {
     MedicationId: number;
     MedicationTime: string;
     MedicationRoute: string;
+    MedicationGenericName: string;
+    MedicationMedicalName: string;
     PrescribedBy: string;
     Phone: string;
     Email: string;

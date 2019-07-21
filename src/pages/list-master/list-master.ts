@@ -6,6 +6,7 @@ import { Items, User } from '../../providers';
 import { HttpClientWrapperService } from '../../providers/api/http-wrapper.service';
 import { PatientDataResponse } from '../../models/PatientDataResponse';
 import { PatientDataRequest } from '../../models/PatientDataRequest';
+import { PatientUpdateRequest } from '../../models/PatientUpdateRequest';
 
 @IonicPage()
 @Component({
@@ -17,9 +18,14 @@ export class ListMasterPage {
   firstName: string = "";
   lastName: string = "";
   email: string = "";
+  gender: string = "";
   dob: string = "";
 
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController, private httpWrapper: HttpClientWrapperService, private user: User) {
+  constructor(public navCtrl: NavController, 
+    public items: Items, 
+    public modalCtrl: ModalController, 
+    private httpWrapper: HttpClientWrapperService, 
+    private user: User) {
     this.currentItems = this.items.query();
 
     let email = new PatientDataRequest({
@@ -27,11 +33,33 @@ export class ListMasterPage {
     })
 
     this.httpWrapper.post<PatientDataRequest, PatientDataResponse>(email, 'Patient/GetPatientData').subscribe(x => {
-      this.firstName = x.firstName
-      this.lastName = x.lastName,
-      this.email = x.email,
-      this.dob = x.DOB
+      this.firstName = x.firstName;
+      this.lastName = x.lastName;
+      this.email = x.email;
+      this.gender = x.Gender;
+      this.dob = x.DOB;
+      this.items.Scripts = x.Scripts;
     })
+    
+  }
+
+  updateUserDetails() {
+
+    let request = new PatientUpdateRequest({
+      userId : this.user._user.id,
+      firstName : this.firstName,
+      lastName : this.lastName,
+      email : this.email,
+      Gender : this.gender,
+      DOB : this.dob
+    });
+    this.httpWrapper.post<PatientUpdateRequest  , PatientDataResponse>(request, 'Patient/UpdatePatient').subscribe(x => {
+      this.firstName = x.firstName;
+      this.lastName = x.lastName;
+      this.email = x.email;
+      this.gender = x.Gender;
+      this.dob = x.DOB;
+    });
   }
 
   /**

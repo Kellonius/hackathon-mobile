@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Item } from '../../models/item';
 import { Api } from '../api/api';
+import { ScriptModel } from '../../models/ScriptModel';
 
 @Injectable()
 export class Items {

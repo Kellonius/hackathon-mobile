@@ -7,6 +7,7 @@ import { Items, User } from '../../providers';
 import { MedicationDataRequest } from '../../models/MedicationDataRequest';
 import { MedicationDataResponse } from '../../models/MedicationDataResponse';
 import { MedicationAddRequest } from '../../models/MedicationAddRequest';
+import { ScriptModel } from '../../models/ScriptModel';
 
 @IonicPage()
 @Component({
@@ -16,20 +17,21 @@ import { MedicationAddRequest } from '../../models/MedicationAddRequest';
 export class SearchPage {
 
   currentItems: MedicationDataResponse[] = [];
+  pharmacyItems: MedicationDataResponse[] = [];
 
-  constructor(public navCtrl: NavController, 
-    public navParams: NavParams, 
-    public items: Items, 
-    private httpWrapper: HttpClientWrapperService, 
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public items: Items,
+    private httpWrapper: HttpClientWrapperService,
     private user: User,
     private alertController: AlertController,
     private toastController: ToastController) {
 
     this.updateAndRefreshMeds()
 
-   }
+  }
 
-   updateAndRefreshMeds() {
+  updateAndRefreshMeds() {
     let id = new MedicationDataRequest({
       patientId: this.user._user.id
     })
@@ -37,12 +39,11 @@ export class SearchPage {
     this.httpWrapper.post<MedicationDataRequest, Array<MedicationDataResponse>>(id, 'Medication/GetMedications').subscribe(x => {
       this.currentItems = x;
     })
-   }
+  }
 
-   async addMedication() {
+  async addMedication() {
     const alert = await this.alertController.create({
       title: 'Add Medication',
-      message: 'Enter information about the medication you want to add.',
       inputs: [
         {
           name: 'name',
@@ -75,7 +76,7 @@ export class SearchPage {
             console.log('Confirm Cancel');
           }
         }, {
-          text: 'Send Request',
+          text: 'Add',
           handler: x => {
             this.handleAddMedication(new MedicationAddRequest({
               userId: this.user._user.id,
@@ -90,47 +91,49 @@ export class SearchPage {
     });
 
     await alert.present();
-   }
+  }
 
-   handleAddMedication(request: MedicationAddRequest){
+  handleAddMedication(request: MedicationAddRequest) {
     this.httpWrapper.post(request, 'Medication/AddMedication').subscribe((x: any) => {
       if (x == 'success') {
-      this.updateAndRefreshMeds();
-       this.loginSuccess();
+        this.updateAndRefreshMeds();
+        this.loginSuccess();
       } else {
         this.loginFailed();
       }
     })
-   }
+  }
 
-   async loginSuccess() {
+  getSource(item: ScriptModel) {
+
+        if (item.DateFilled == null) {
+          return '../../assets/img/prescription.png';
+        }
+        if (item.DateFilled != null && item.DatePickedUp == null) {
+          return '../../assets/img/filled.png';
+        }
+
+        return '../../assets/img/rx-bottles.jpg';
+  }
+
+  async loginSuccess() {
     const toast = await this.toastController.create({
       message: 'Medication added successfully.',
       duration: 2000
     });
     toast.present();
-   }
+  }
 
-   async loginFailed() {
+  async loginFailed() {
     const toast = await this.toastController.create({
       message: 'Adding medication failed.',
       duration: 2000
     });
     toast.present();
-   }
+  }
   /**
    * Perform a service for the proper items.
    */
-  // getItems(ev) {
-  //   let val = ev.target.value;
-  //   if (!val || !val.trim()) {
-  //     this.currentItems = [];
-  //     return;
-  //   }
-  //   this.currentItems = this.items.query({
-  //     name: val
-  //   });
-  // }
 
   /**
    * Navigate to the detail page for this item.
