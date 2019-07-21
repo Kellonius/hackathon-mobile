@@ -8,6 +8,8 @@ import { MedicationDataRequest } from '../../models/MedicationDataRequest';
 import { MedicationDataResponse } from '../../models/MedicationDataResponse';
 import { MedicationAddRequest } from '../../models/MedicationAddRequest';
 import { ScriptModel } from '../../models/ScriptModel';
+import { PatientDataResponse } from '../../models/PatientDataResponse';
+import { PatientDataRequest } from '../../models/PatientDataRequest';
 
 @IonicPage()
 @Component({
@@ -32,12 +34,17 @@ export class SearchPage {
   }
 
   updateAndRefreshMeds() {
-    let id = new MedicationDataRequest({
-      patientId: this.user._user.id
+    let email = new PatientDataRequest({
+      userEmail : this.user._user.email
     })
+    // this.currentItems = [];
+    // this.httpWrapper.post<MedicationDataRequest, Array<MedicationDataResponse>>(id, 'Medication/GetMedications').subscribe(x => {
+    //   this.currentItems = x;
+    // })
 
-    this.httpWrapper.post<MedicationDataRequest, Array<MedicationDataResponse>>(id, 'Medication/GetMedications').subscribe(x => {
-      this.currentItems = x;
+    this.httpWrapper.post<PatientDataRequest, PatientDataResponse>(email, 'Patient/GetPatientData').subscribe(x => {
+      
+      this.items.Scripts = x.Scripts
     })
   }
 
