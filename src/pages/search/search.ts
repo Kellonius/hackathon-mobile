@@ -151,4 +151,8 @@ export class SearchPage {
     });
   }
 
+  demo() {
+    console.log("this is a change")
+  }
+
 }
